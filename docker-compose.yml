@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  negai-backend:
+    build: .
+    image: dias1618/aquila-backend-auth
+    container_name: aquila-backend-auth
+    ports:
+        - 3002:3000
+    restart: on-failure
+    networks:
+        - dados_postgres-network
+
+networks:
+    dados_postgres-network:
+        external:
+            name: dados_postgres-network
