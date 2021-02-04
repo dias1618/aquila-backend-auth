@@ -4,7 +4,6 @@ import { getRepository, getManager, Connection } from "typeorm";
 import { Injectable } from "@nestjs/common";
 import { UsuarioCategoria } from "src/entities/usuario-categoria.entity";
 import { SignupDto } from "src/dtos/singup.dto";
-import { Categoria } from "src/entities/categoria.entity";
 
 @Injectable()
 export class UsuarioService{
