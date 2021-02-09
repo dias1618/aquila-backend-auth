@@ -38,11 +38,13 @@ export class UsuarioService{
         await getManager().transaction(async transactionEntityManager => {
             usuario = await transactionEntityManager.save(new Usuario(signupDto.usuario));
             let usuarioCategoriasList:UsuarioCategoria[] = [];
-            for(let usuarioCategorias of signupDto.usuarioCategorias){
-                usuarioCategorias.usuario = usuario;
-                usuarioCategoriasList.push(new UsuarioCategoria(usuarioCategorias));
+            if(signupDto.usuarioCategorias){
+                for(let usuarioCategorias of signupDto.usuarioCategorias){
+                    usuarioCategorias.usuario = usuario;
+                    usuarioCategoriasList.push(new UsuarioCategoria(usuarioCategorias));
+                }
+                await transactionEntityManager.save(usuarioCategoriasList);
             }
-            await transactionEntityManager.save(usuarioCategoriasList);
         }).catch((reason) => {
             console.log(reason);
         });
