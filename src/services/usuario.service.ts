@@ -27,22 +27,8 @@ export class UsuarioService{
     }
 
     async create(signupDto:SignupDto):Promise<Usuario>{
-        let usuario:Usuario;
-
-        await getManager().transaction(async transactionEntityManager => {
-            usuario = await transactionEntityManager.save(new Usuario(signupDto.usuario));
-            let usuarioCategoriasList:UsuarioCategoria[] = [];
-            if(signupDto.usuarioCategorias){
-                for(let usuarioCategorias of signupDto.usuarioCategorias){
-                    usuarioCategorias.usuario = usuario;
-                    usuarioCategoriasList.push(new UsuarioCategoria(usuarioCategorias));
-                }
-                await transactionEntityManager.save(usuarioCategoriasList);
-            }
-        }).catch((reason) => {
-            console.log(reason);
-        });
-
+        let usuario:Usuario = new Usuario(signupDto.usuario);
+        usuario = await usuario.save();
         return usuario;
         
     }
