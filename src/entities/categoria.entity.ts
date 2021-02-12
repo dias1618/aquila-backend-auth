@@ -17,7 +17,7 @@ export class Categoria extends BaseEntity{
     @Column("varchar")
     nome:string;
 
-    @Column("integer")
+    @Column("integer", {nullable: true})
     idPlatform:number;
 
     @OneToMany(type => UsuarioCategoria, usuariosCategorias => usuariosCategorias.categoria)
